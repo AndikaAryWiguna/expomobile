@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Platform, StyleSheet, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Banner from "../src/components/Banner";
@@ -10,7 +10,7 @@ import SearchBar from "../src/components/SearchBar";
 
 import { initialCategories } from "../src/data/categories";
 import { initialDrinks } from "../src/data/drinks";
-import { Category, Drink } from "../src/types";
+import { Category } from "../src/types";
 
 export default function App() {
   const [categories, setCategories] = useState<Category[]>(initialCategories);
@@ -26,22 +26,18 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Konten utama */}
-      <View style={styles.content}>
-        <FlatList
-          data={initialDrinks}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }: { item: Drink }) => <DrinkCard drink={item} />}
-          ListHeaderComponent={
-            <View>
-              <Banner />
-              <SearchBar />
-              <CategoryList categories={categories} onSelect={selectCategory} />
-            </View>
-          }
-          contentContainerStyle={{ paddingBottom: 140 }} // beri ruang buat nav
-          showsVerticalScrollIndicator={true}
-        />
+      {/* Header di luar scroll */}
+      <Banner />
+      <SearchBar />
+      <CategoryList categories={categories} onSelect={selectCategory} />
+
+      {/* Drinks scrollable */}
+      <View style={styles.drinksWrapper}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 140 }}>
+          {initialDrinks.map((item, index) => (
+            <DrinkCard key={index} drink={item} />
+          ))}
+        </ScrollView>
       </View>
 
       {/* Bottom Navigation fix di bawah */}
@@ -58,8 +54,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     position: "relative",
   },
-  content: {
-    flex: 1,
+  drinksWrapper: {
+    flex: 5, // FlatList ambil ruang tersisa & bisa scroll
+  },
+  // khusus web supaya FlatList bisa discroll
+  webScrollWrapper: {
+    maxHeight: "100%",
+    overflow: "scroll", // pakai scroll, bukan auto
   },
   bottomNavWrapper: {
     position: Platform.OS === "web" ? "fixed" : "absolute",
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: "center",
-    zIndex: 9999, // pastikan tampil di atas
-    elevation: 10, // untuk Android
+    zIndex: 9999,
+    elevation: 10,
     backgroundColor: "transparent",
   },
 });
