@@ -17,8 +17,11 @@ const BottomNav = () => {
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
-            <TouchableOpacity key={tab.id} style={[styles.button, isActive && styles.activeButton]} onPress={() => setActiveTab(tab.id)}>
-              <Ionicons name={tab.icon as any} size={24} color={isActive ? "#fff" : "#555"} />
+            <TouchableOpacity
+              key={tab.id}
+              style={[styles.button, !isActive && styles.inactiveButton, isActive && styles.activeButton]}
+              onPress={() => setActiveTab(tab.id)}>
+              <Ionicons name={tab.icon as any} size={24} color={isActive ? "#fff" : "#F7941D"} />
               {isActive && <Text style={styles.label}>{tab.label}</Text>}
             </TouchableOpacity>
           );
@@ -31,34 +34,40 @@ const BottomNav = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0,
+    bottom: 20,
     left: 0,
     right: 0,
-    height: 109,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "transparent", // biar gak nutupin background utama
   },
   navBackground: {
     width: 317,
     height: 69,
     borderRadius: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(247, 148, 29, 0.20)", // oranye 2% opacity
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    elevation: 5,
+
+    // shadow iOS
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 3,
+    shadowRadius: 20,
+
+    // shadow Android
+    elevation: 10,
   },
+
   button: {
     width: 54,
     height: 54,
     borderRadius: 27,
     alignItems: "center",
     justifyContent: "center",
+  },
+  inactiveButton: {
+    backgroundColor: "#FFFFFF", // putih untuk nav yang tidak aktif
   },
   activeButton: {
     width: 130,
@@ -74,6 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     marginLeft: 8,
+    fontFamily: "Poppins", // pakai font Poppins
   },
 });
 
