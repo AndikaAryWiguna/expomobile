@@ -18,13 +18,13 @@ export const initialDrinks: Drink[] = [
     name: "Caramel Macchiato",
     description: "Classic Starbucks caramel macchiato",
     price: 50.0,
-    imageUrl: require("../../assets/images/drink2.jpg"),
+    imageUrl: require("../../assets/images/drink3.jpg"),
   },
   {
     name: "Caramel Macchiato",
     description: "Classic Starbucks caramel macchiato",
     price: 50.0,
-    imageUrl: require("../../assets/images/drink2.jpg"),
+    imageUrl: require("../../assets/images/drink4.jpg"),
   },
   {
     name: "Caramel Macchiato",
