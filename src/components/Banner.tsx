@@ -1,36 +1,46 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const placeholderImage = "https://www.gstatic.com/flutter-onestack-prototype/genui/example_1.jpg";
-
 export default function HeaderBanner() {
   return (
-    <View style={styles.banner}>
-      <View style={styles.bannerContent}>
-        <Text style={styles.bannerText}>Discover a world of{"\n"}Coffee delight at</Text>
-        <TouchableOpacity style={styles.bannerButton}>
-          <Text style={styles.bannerButtonText}>Try to test</Text>
-        </TouchableOpacity>
+    <View style={styles.bannerWrapper}>
+      <View style={styles.banner}>
+        {/* Kiri: teks + button */}
+        <View style={styles.bannerContent}>
+          <Text style={styles.bannerText}>Discover a world of{"\n"}Coffee delight at</Text>
+          <TouchableOpacity style={styles.bannerButton}>
+            <Text style={styles.bannerButtonText}>Try to test</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Kanan: gambar banner tetap */}
+        <View style={styles.imageWrapper}>
+          <Image source={require("../../assets/images/banner.png")} style={styles.bannerImage} resizeMode="cover" />
+        </View>
       </View>
-      <Image source={{ uri: placeholderImage }} style={styles.bannerImage} />
+
+      {/* Gambar kopi keluar dari card */}
+      <Image source={require("../../assets/images/bannercoffe.png")} style={styles.bannerCoffeImage} resizeMode="contain" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  banner: {
+  bannerWrapper: {
     margin: 16,
+    position: "relative", // supaya bisa absolute keluar
+  },
+  banner: {
     borderRadius: 20,
     backgroundColor: "#F79321",
     height: 180,
-    overflow: "hidden",
+    overflow: "hidden", // biar radius card tetap rapi
     flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
   },
   bannerContent: {
     flex: 1,
     justifyContent: "space-between",
+    padding: 16,
   },
   bannerText: {
     fontSize: 22,
@@ -48,10 +58,22 @@ const styles = StyleSheet.create({
     color: "#F79321",
     fontWeight: "bold",
   },
+  imageWrapper: {
+    flex: 1,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: "hidden",
+  },
   bannerImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignSelf: "center",
+    width: "100%",
+    height: "100%",
+  },
+  bannerCoffeImage: {
+    position: "absolute",
+    right: -30, // geser sedikit keluar kanan
+    top: -40, // keluar sedikit dari atas
+    width: 230,
+    height: 230,
+    transform: [{ rotate: "17.83deg" }], // bikin miring
   },
 });
