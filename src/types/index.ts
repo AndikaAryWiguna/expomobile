@@ -4,9 +4,11 @@ export type Category = {
   isSelected: boolean;
 };
 
+import { ImageSourcePropType } from "react-native";
+
 export type Drink = {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  imageUrl: ImageSourcePropType; // ✅ bukan string lagi
 };

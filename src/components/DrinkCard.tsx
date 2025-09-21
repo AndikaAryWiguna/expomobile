@@ -1,8 +1,6 @@
 import React from "react";
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Drink } from "../types";
-
-const { width } = Dimensions.get("window");
 
 type Props = {
   drink: Drink;
@@ -11,12 +9,15 @@ type Props = {
 export default function DrinkCard({ drink }: Props) {
   return (
     <View style={styles.drinkCard}>
-      <Image source={{ uri: drink.imageUrl }} style={styles.drinkImage} />
+      {/* Image menyatu dengan card */}
+      <Image source={drink.imageUrl} style={styles.drinkImage} />
 
+      {/* Content */}
       <View style={styles.textWrapper}>
         <Text style={styles.drinkName}>{drink.name}</Text>
         <Text style={styles.drinkDesc}>{drink.description}</Text>
 
+        {/* Price + Button sejajar */}
         <View style={styles.bottomRow}>
           <Text style={styles.drinkPrice}>${drink.price.toFixed(2)}</Text>
           <TouchableOpacity style={styles.addButton}>
@@ -30,23 +31,23 @@ export default function DrinkCard({ drink }: Props) {
 
 const styles = StyleSheet.create({
   drinkCard: {
-    width: width * 0.9, // 90% dari layar, biar responsif
-    borderRadius: 20,
-    backgroundColor: "#fff",
+    height: 182,
     flexDirection: "row",
-    marginVertical: 10,
-    alignSelf: "center",
-    overflow: "hidden", // penting biar image ikut rounded
+    marginHorizontal: 16,
+    marginVertical: 8,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    overflow: "hidden", // penting biar image nyatu dengan card
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 5,
     elevation: 3,
   },
   drinkImage: {
-    width: "40%",
-    aspectRatio: 1, // biar square (otomatis sesuai width)
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
+    width: 140,
+    height: "100%",
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   textWrapper: {
     flex: 1,
@@ -54,16 +55,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   drinkName: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "Poppins",
-    fontWeight: "500",
+    fontWeight: "500", // Medium
+    lineHeight: 20,
     color: "#000",
   },
   drinkDesc: {
     fontSize: 12,
-    fontFamily: "Poppins",
     color: "#777",
-    marginVertical: 6,
+    fontFamily: "Poppins",
+    marginVertical: 2,
   },
   bottomRow: {
     flexDirection: "row",
@@ -88,5 +90,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     fontWeight: "bold",
+    lineHeight: 20,
   },
 });
