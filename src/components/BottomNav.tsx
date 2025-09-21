@@ -34,12 +34,23 @@ const BottomNav = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 20,
+    bottom: 0, // biar nempel bawah
     left: 0,
     right: 0,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#rgba(255,255,255,0.4)", // putih semi transparan
+    borderTopLeftRadius: 30, // rounder atas kiri
+    borderTopRightRadius: 30, // rounder atas kanan
+    paddingTop: 20,
+    paddingBottom: 10,
+    shadowColor: "#ffffff", // kasih shadow biar kesan depth
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 8, // untuk Android
   },
+
   navBackground: {
     width: 317,
     height: 69,

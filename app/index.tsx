@@ -25,26 +25,29 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header di luar scroll */}
-      <Banner />
-      <SearchBar />
-      <CategoryList categories={categories} onSelect={selectCategory} />
+    <View style={styles.container}>
+      {/* SafeArea hanya untuk bagian atas */}
+      <SafeAreaView edges={["top"]} style={{ flex: 1 }}>
+        {/* Header di luar scroll */}
+        <Banner />
+        <SearchBar />
+        <CategoryList categories={categories} onSelect={selectCategory} />
 
-      {/* Drinks scrollable */}
-      <View style={styles.drinksWrapper}>
-        <ScrollView contentContainerStyle={{ paddingBottom: 140 }}>
-          {initialDrinks.map((item, index) => (
-            <DrinkCard key={index} drink={item} />
-          ))}
-        </ScrollView>
-      </View>
+        {/* Drinks scrollable */}
+        <View style={styles.drinksWrapper}>
+          <ScrollView contentContainerStyle={{ paddingBottom: 140 }}>
+            {initialDrinks.map((item, index) => (
+              <DrinkCard key={index} drink={item} />
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
 
       {/* Bottom Navigation fix di bawah */}
       <View style={styles.bottomNavWrapper}>
         <BottomNav />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -55,12 +58,11 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   drinksWrapper: {
-    flex: 5, // FlatList ambil ruang tersisa & bisa scroll
+    flex: 1, // ambil ruang sisa & bisa scroll
   },
-  // khusus web supaya FlatList bisa discroll
   webScrollWrapper: {
     maxHeight: "100%",
-    overflow: "scroll", // pakai scroll, bukan auto
+    overflow: "scroll", // khusus web
   },
   bottomNavWrapper: {
     position: Platform.OS === "web" ? "fixed" : "absolute",
