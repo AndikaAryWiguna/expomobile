@@ -1,6 +1,7 @@
+// src/types.ts
 export type Category = {
   name: string;
-  icon: string;
+  icon: any; // gambar dari require
   isSelected: boolean;
 };
 
