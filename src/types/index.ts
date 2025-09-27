@@ -8,6 +8,7 @@ export type Category = {
 import { ImageSourcePropType } from "react-native";
 
 export type Drink = {
+  id: string;
   name: string;
   description: string;
   price: number;
