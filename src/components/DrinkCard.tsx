@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Drink } from "../types";
@@ -20,7 +21,14 @@ export default function DrinkCard({ drink }: Props) {
         {/* Price + Button sejajar */}
         <View style={styles.bottomRow}>
           <Text style={styles.drinkPrice}>${drink.price.toFixed(2)}</Text>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() =>
+              router.push({
+                pathname: "/drink/[id]", // ✅ static path
+                params: { id: String(drink.id) }, // ✅ param diteruskan
+              })
+            }>
             <Text style={styles.addText}>+</Text>
           </TouchableOpacity>
         </View>
