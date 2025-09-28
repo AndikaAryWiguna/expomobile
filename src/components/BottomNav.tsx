@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
   navBackground: {
     width: 317,
-    height: 69,
+    height: 80,
     borderRadius: 50,
     backgroundColor: "rgba(247, 148, 29, 0.20)", // oranye 2% opacity
     flexDirection: "row",
@@ -78,7 +78,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inactiveButton: {
-    backgroundColor: "#FFFFFF", // putih untuk nav yang tidak aktif
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 20, // putih untuk nav yang tidak aktif
   },
   activeButton: {
     width: 130,
