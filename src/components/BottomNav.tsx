@@ -1,26 +1,32 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import { usePathname, useRouter } from "expo-router";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const BottomNav = () => {
-  const [activeTab, setActiveTab] = useState("home");
+  const router = useRouter();
+  const pathname = usePathname(); // untuk tahu tab aktif
 
   const tabs = [
-    { id: "home", icon: "home", label: "Home" },
-    { id: "cart", icon: "cart", label: "Cart" },
-    { id: "call", icon: "call", label: "Call" },
+    { id: "home", icon: "home", label: "Home", route: "/" },
+    { id: "cart", icon: "cart", label: "Cart", route: "/cart" },
+    { id: "call", icon: "call", label: "Call", route: "/call" },
   ];
+
+  const handlePress = (tab: any) => {
+    router.push(tab.route); // pindah ke halaman berdasarkan path
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.navBackground}>
         {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
+          const isActive = pathname === tab.route;
           return (
             <TouchableOpacity
               key={tab.id}
               style={[styles.button, !isActive && styles.inactiveButton, isActive && styles.activeButton]}
-              onPress={() => setActiveTab(tab.id)}>
+              onPress={() => handlePress(tab)}>
               <Ionicons name={tab.icon as any} size={24} color={isActive ? "#fff" : "#F7941D"} />
               {isActive && <Text style={styles.label}>{tab.label}</Text>}
             </TouchableOpacity>
@@ -34,42 +40,36 @@ const BottomNav = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0, // biar nempel bawah
+    bottom: 0,
     left: 0,
     right: 0,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#rgba(255,255,255,0.4)", // putih semi transparan
-    borderTopLeftRadius: 30, // rounder atas kiri
-    borderTopRightRadius: 30, // rounder atas kanan
+    backgroundColor: "rgba(255,255,255,0.4)",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingTop: 20,
     paddingBottom: 10,
-    shadowColor: "#ffffff", // kasih shadow biar kesan depth
+    shadowColor: "#ffffff",
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 8, // untuk Android
+    elevation: 8,
   },
-
   navBackground: {
     width: 317,
     height: 80,
     borderRadius: 50,
-    backgroundColor: "rgba(247, 148, 29, 0.20)", // oranye 2% opacity
+    backgroundColor: "rgba(247, 148, 29, 0.20)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-
-    // shadow iOS
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 20,
-
-    // shadow Android
     elevation: 10,
   },
-
   button: {
     width: 54,
     height: 54,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 20, // putih untuk nav yang tidak aktif
+    shadowRadius: 20,
   },
   activeButton: {
     width: 130,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     marginLeft: 8,
-    fontFamily: "Poppins", // pakai font Poppins
+    fontFamily: "Poppins",
   },
 });
 
