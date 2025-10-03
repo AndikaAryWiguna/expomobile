@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 36,
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
 
   qtyWrapper: {
